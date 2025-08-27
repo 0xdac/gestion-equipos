@@ -59,16 +59,7 @@ class Equipo extends Model
         ]);
     }
 
-    /**
-     * Devuelve todos los equipos
-     * @return array todos los equipos
-     */ 
-    public function getAll()
-    {  
-        return $this->all();   
-    }
-
-    public function tableName()
+    public static function tableName()
     {
         return 'equipo';
     }

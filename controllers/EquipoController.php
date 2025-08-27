@@ -18,7 +18,7 @@ class EquipoController extends Controller
      */
     public function actionIndex()
     {
-        $equipos = (new Equipo)->getAll();
+        $equipos = Equipo::all();
 
         return $this->render( '/views/equipo/index.php', [
                 'equipos' => $equipos
@@ -49,7 +49,7 @@ class EquipoController extends Controller
      */
     public function actionView( $id )
     {
-        $equipo = (new Equipo)->findOne( $id );
+        $equipo = Equipo::findOne( $id );
 
         if ( !$equipo ) {            
             return $this->redirect( 'index.php?r=equipo&action=index' );

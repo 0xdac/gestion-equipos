@@ -30,9 +30,9 @@ class Model
     /**
      * Devuelve todas las filas del modelo
      */
-    protected function all()
+    public static function all()
     {
-        $table_name = $this->tableName();
+        $table_name = static::tableName();
         $db = new DatabaseClass();
 
         $all = $db->selectAll( $table_name ); 
@@ -42,9 +42,9 @@ class Model
     /**
      * Devuelve un modelo
      */
-    public function findOne( $id )
+    public static function findOne( $id )
     {
-        $table_name = $this->tableName();
+        $table_name = static::tableName();
         $db = new DatabaseClass();
 
         $model = $db->selectOne( $table_name, $id ); 
@@ -88,7 +88,7 @@ class Model
         return $result;
     }
 
-    protected function tableName()
+    protected static function tableName()
     {
         return '';
     }

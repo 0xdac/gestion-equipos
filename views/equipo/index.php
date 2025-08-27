@@ -29,11 +29,13 @@ $count = count( $equipos );
     <tbody>
         <?php
             for( $i = 0; $i < $count; $i ++ ){
+                $view_url = 'index.php?r=equipo&action=view&id='.$equipos[ $i ]['id'];
                 echo "<tr>
                 <td>" .htmlspecialchars( $equipos[ $i ]['nombre'] ). "</td>
                 <td>" .htmlspecialchars( $equipos[ $i ]['ciudad'] ). "</td>
                 <td>" .htmlspecialchars( $equipos[ $i ]['deporte'] ). "</td>
                 <td>" .htmlspecialchars( $equipos[ $i ]['fecha'] ). "</td>
+                <td><a href=".$view_url.">Ver</a></td>
                 </tr>"; 
             }
         ?> 

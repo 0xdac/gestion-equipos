@@ -22,6 +22,12 @@ if( isset( $_GET[ 'r' ] ) && isset( $_GET[ 'action' ] ) ){
             exit;
         }
 
+        if( 'view' === $action ){
+            $id = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : -1 ;            
+            $equipo_controller->actionView( $id );
+            exit;
+        }
+
         //Default
         header( 'Location: index.php', true, 301 );
         exit;

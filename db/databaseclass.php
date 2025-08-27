@@ -36,6 +36,13 @@ class DatabaseClass {
         $stmt = $this->executeStatement( $statement );
         return $stmt->fetchAll();		
     }	
+
+    public function selectOne( $table_name = "", $id )
+    {
+        $statement = $this->connection->prepare( 'SELECT * FROM ' .$table_name. ' WHERE id = :id' );
+        $statement->execute( [ 'id'=> $id ]);
+        return $statement->fetch();		
+    }
     
     private function executeStatement( $statement = "" , $parameters = [] )
     {

@@ -43,4 +43,21 @@ class EquipoController extends Controller
             );
         }
     }
+
+    /**
+     * Muestra un equipo especifico
+     */
+    public function actionView( $id )
+    {
+        $equipo = (new Equipo)->findOne( $id );
+
+        if ( !$equipo ) {            
+            return $this->redirect( 'index.php?r=equipo&action=index' );
+        } else {
+            return $this->render( '/views/equipo/view.php', [
+                    'equipo' => $equipo
+                ] 
+            );
+        }
+    }
 }

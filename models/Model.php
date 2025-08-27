@@ -40,6 +40,18 @@ class Model
     }
 
     /**
+     * Devuelve un modelo
+     */
+    public function findOne( $id )
+    {
+        $table_name = $this->tableName();
+        $db = new DatabaseClass();
+
+        $model = $db->selectOne( $table_name, $id ); 
+        return $model;  
+    }
+
+    /**
      * Devuelve los errores encontrados durante la validacion
      * @return array todos los errores
      */ 
@@ -72,7 +84,6 @@ class Model
                 $this->errors[ $field ] = 'El campo '. $field .' contiene caracteres incorrectos.';
             }
         }
-
 
         return $result;
     }

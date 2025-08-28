@@ -78,7 +78,10 @@ class DatabaseClass {
 
     public function selectAllByField( $table_name = "", $field )
     {
-        $statement = $this->connection->prepare( 'SELECT * FROM ' .$table_name. ' WHERE equipo = :equipo' );
+        $keys = array_keys( $field );
+        $where = "$keys[0] = :$keys[0]";
+        
+        $statement = $this->connection->prepare( "SELECT * FROM $table_name WHERE $where" );        
         $statement->execute( $field );
         return $statement->fetchAll();		
     }

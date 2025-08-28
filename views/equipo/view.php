@@ -18,6 +18,7 @@ $count = count( $jugadores );
     <h3>Deporte: <?= htmlspecialchars( $equipo[ 'deporte' ] ) ?></h3>
     <h3>Fecha: <?= htmlspecialchars( $equipo[ 'fecha' ] ) ?></h3>
     <h2>Jugadores del equipo</h2>
+    <h3>Capitán del equipo: <?= !empty( $capitan ) ? $capitan[ 'nombre' ] : "Este equipo aún no tiene capitán." ?> </h3>
     <table>
     <thead>
         <tr>

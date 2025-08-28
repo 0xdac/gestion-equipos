@@ -5,6 +5,7 @@ namespace models;
 require_once( dirname( __FILE__ ) . '/Model.php' );
 
 use models\Model;
+use models\Jugador;
 
 /**
  * Equipo representa el modelo de equipo. 
@@ -40,6 +41,8 @@ class Equipo extends Model
             $this->fecha = $post[ 'fecha' ];
         else $result = false;  
 
+        $this->capitan = isset( $post[ 'capitan' ] ) ? $post[ 'capitan' ] : null; 
+
         return $result;
     }
 
@@ -54,12 +57,18 @@ class Equipo extends Model
             'ciudad' => $this->ciudad,
             'deporte' => $this->deporte,
             'fecha' => $this->fecha,
+            'capitan' => $this->capitan,
         ]);
     }
 
     public static function tableName()
     {
         return 'equipo';
+    }
+
+    public static function findCaptain( $id ) 
+    {
+        return Jugador::findOne( $id );
     }
 
     public function getCiudad()
@@ -80,4 +89,5 @@ class Equipo extends Model
     private $ciudad;
     private $deporte;
     private $fecha;
+    private $capitan;
 }

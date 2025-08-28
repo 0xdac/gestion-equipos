@@ -57,12 +57,42 @@ class EquipoController extends Controller
             return $this->redirect( 'index.php?r=equipo&action=index' );
         } else {
             $jugadores = Jugador::allByTeam( $id );
+            $capitan = Equipo::findCaptain( $equipo[ 'capitan' ] );
 
             return $this->render( '/views/equipo/view.php', [
                     'equipo' => $equipo,
-                    'jugadores' => $jugadores
+                    'jugadores' => $jugadores,
+                    'capitan' => $capitan
                 ] 
             );
+        }
+    }
+
+    /**
+     * Editar un equipo
+     */
+    public function actionUpdate( $id )
+    {
+        $model = Equipo::findOne( $id );
+        
+        if ( $model ) {
+            $equipo = new Equipo();
+            $equipo->setId( $id );
+
+            if ( $equipo->load( $_POST ) ) {            
+                $equipo->save();
+                return $this->redirect( 'index.php?r=equipo&action=index' );
+            } else {
+                $jugadores = Jugador::allByTeam( $id );
+                return $this->render( '/views/equipo/update.php', [
+                        'model' => $model,
+                        'equipo' => $equipo,
+                        'jugadores' => $jugadores,
+                    ] 
+                );
+            }
+        } else {
+            return $this->render( '/views/error.php', [] );
         }
     }
 }

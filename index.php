@@ -43,6 +43,16 @@ if( isset( $_GET[ 'r' ] ) && isset( $_GET[ 'action' ] ) ){
             $jugador_controller->actionCreate();
             exit;
         }
+
+        if( 'delete' === $action ){   
+            $id = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : -1 ;         
+            $jugador_controller->actionDelete( $id );
+            exit;
+        }
+
+        //Default
+        header( 'Location: index.php', true, 301 );
+        exit;
     }
     else {
         header( 'Location: index.php', true, 301 );

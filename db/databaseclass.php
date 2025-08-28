@@ -30,6 +30,25 @@ class DatabaseClass {
         return $this->connection->lastInsertId();		
     }
 
+    /**
+     * Elimina una fila en la tabla
+     * @param string $table_name el nombre de la tabla donde se va a eliminar
+     * @param integer $id el id de la fila
+     * @return la fila antes de ser eliminada
+     */ 
+    public function delete( $table_name = "", $id )
+    {
+        $row = null;
+        $row = $this->selectOne( $table_name, $id );
+
+        $statement = "DELETE FROM ". $table_name ." where id = :id";
+        $stmt = $this->executeStatement( $statement, [
+            'id' => $id
+        ] );
+
+        return $row;		
+    }
+
     public function selectAll( $table_name = "" )
     {
         $statement = "SELECT * FROM " . $table_name;

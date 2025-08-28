@@ -34,4 +34,19 @@ class JugadorController extends Controller
             );
         }
     }
+
+    /**
+     * Elimina un jugador
+     */
+    public function actionDelete( $id )
+    {
+        $jugador = Jugador::deleteOne( $id );
+                
+        if ( $jugador ) {
+            $id_equipo = $jugador[ 'equipo' ];            
+            return $this->redirect( 'index.php?r=equipo&action=view&id='.$id_equipo );
+        } else {
+            return $this->render( '/views/error.php', [] );
+        }
+    }
 }

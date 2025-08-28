@@ -67,6 +67,20 @@ class Model
         return $model;  
     }
 
+    /**
+     * Elimina un modelo
+     * @param integer $id el id del modelo
+     * @return Model el modelo antes de ser eliminado
+     */
+    public static function deleteOne( $id )
+    {
+        $table_name = static::tableName();
+        $db = new DatabaseClass();
+
+        $model = $db->delete( $table_name, $id ); 
+        return $model;  
+    }
+
     public static function allByField( $field ) 
     {
         $table_name = static::tableName();

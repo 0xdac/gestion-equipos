@@ -1,7 +1,9 @@
 <?php
 require_once( dirname(__FILE__) . '/controllers/EquipoController.php' );
+require_once( dirname(__FILE__) . '/controllers/JugadorController.php' );
 
 use controllers\EquipoController;
+use controllers\JugadorController;
 
 if( isset( $_GET[ 'r' ] ) && isset( $_GET[ 'action' ] ) ){
 
@@ -35,6 +37,12 @@ if( isset( $_GET[ 'r' ] ) && isset( $_GET[ 'action' ] ) ){
     }
     else if( 'jugador' === $route ){
 
+        $jugador_controller = new JugadorController();
+
+        if( 'create' === $action ){            
+            $jugador_controller->actionCreate();
+            exit;
+        }
     }
     else {
         header( 'Location: index.php', true, 301 );
@@ -48,6 +56,8 @@ else { ?>
         <p>Gestionar equipos</p>
         <p><a class="#" href="index.php?r=equipo&action=create">Agregar equipo</a></p>
         <p><a class="#" href="index.php?r=equipo&action=index">Listar equipos</a></p>
+        <p>Gestionar jugadores</p>
+        <p><a class="#" href="index.php?r=jugador&action=create">Agregar jugador</a></p>
     </div>
 <?php } 
 ?>

@@ -43,6 +43,13 @@ class DatabaseClass {
         $statement->execute( [ 'id'=> $id ]);
         return $statement->fetch();		
     }
+
+    public function selectAllByField( $table_name = "", $field )
+    {
+        $statement = $this->connection->prepare( 'SELECT * FROM ' .$table_name. ' WHERE equipo = :equipo' );
+        $statement->execute( $field );
+        return $statement->fetchAll();		
+    }
     
     private function executeStatement( $statement = "" , $parameters = [] )
     {

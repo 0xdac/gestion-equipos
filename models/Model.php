@@ -13,6 +13,22 @@ use db\DatabaseClass;
 
 class Model
 { 
+    public function load( $post )
+    {
+        $result = true;
+
+        if( $this->validate( $post, 'nombre', 'required' ) && $this->validate( $post, 'nombre', 'string' )) 
+            $this->nombre = $post[ 'nombre' ];
+        else $result = false;             
+
+        return $result;
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
     /**
      * Hace persistente el objeto del modelo.
      * @param array $fields los campos y los valores a insertar
@@ -20,7 +36,7 @@ class Model
      */   
     protected function saveModel( $fields )
     {
-        $table_name = $this->tableName();        
+        $table_name = static::tableName();        
         $db = new DatabaseClass();
 
         $id = $db->insert( $table_name, $fields );
@@ -51,6 +67,15 @@ class Model
         return $model;  
     }
 
+    public static function allByField( $field ) 
+    {
+        $table_name = static::tableName();
+        $db = new DatabaseClass();
+
+        $model = $db->selectAllByField( $table_name, $field ); 
+        return $model;  
+    }
+
     /**
      * Devuelve los errores encontrados durante la validacion
      * @return array todos los errores
@@ -77,7 +102,7 @@ class Model
             }
         }
         else if( 'string' === $validation ){
-            if ( preg_match('/^[A-Za-z0-9_-]*$/', $data[ $field ] ) ) {
+            if ( preg_match( "/^[\w\s\.-]*$/", $data[ $field ] ) ) {
                 $result = true;
             }
             else{
@@ -93,5 +118,6 @@ class Model
         return '';
     }
 
+    protected $nombre;
     protected $errors;
 }

@@ -26,9 +26,7 @@ class Equipo extends Model
 
         $result = true;
 
-        if( $this->validate( $post, 'nombre', 'required' ) && $this->validate( $post, 'nombre', 'string' )) 
-            $this->nombre = $post[ 'nombre' ];
-        else $result = false;            
+        $result = parent::load( $post );         
         
         if( $this->validate( $post, 'ciudad', 'required' ) ) 
             $this->ciudad = $post[ 'ciudad' ];
@@ -64,11 +62,6 @@ class Equipo extends Model
         return 'equipo';
     }
 
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
     public function getCiudad()
     {
         return $this->ciudad;
@@ -84,7 +77,6 @@ class Equipo extends Model
         return $this->fecha;
     }
 
-    private $nombre;
     private $ciudad;
     private $deporte;
     private $fecha;

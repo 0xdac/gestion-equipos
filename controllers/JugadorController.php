@@ -49,4 +49,34 @@ class JugadorController extends Controller
             return $this->render( '/views/error.php', [] );
         }
     }
+
+    /**
+     * Editar un jugador
+     */
+    public function actionUpdate( $id )
+    {
+        $model = Jugador::findOne( $id );
+        $equipos = Equipo::all();
+        
+        if ( $model ) {
+            $jugador = new Jugador();
+            $jugador->setId( $id );
+
+            if ( $jugador->load( $_POST ) ) {            
+                $jugador->save();
+                //Tambien es posible cambiar el jugador a otro equipo
+                $id_equipo = $jugador->getEquipo();
+                return $this->redirect( 'index.php?r=equipo&action=view&id='.$id_equipo );
+            } else {
+                return $this->render( '/views/jugador/update.php', [
+                        'model' => $model,
+                        'jugador' => $jugador,
+                        'equipos' => $equipos
+                    ] 
+                );
+            }
+        } else {
+            return $this->render( '/views/error.php', [] );
+        }
+    }
 }

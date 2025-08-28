@@ -39,8 +39,14 @@ class Model
         $table_name = static::tableName();        
         $db = new DatabaseClass();
 
-        $id = $db->insert( $table_name, $fields );
-        return $id;
+        $model = $db->selectOne( $table_name, $this->id );
+        
+        if( $model ){
+            return $db->update( $table_name, $fields, $this->id );
+        }
+        else {
+            return $db->insert( $table_name, $fields );
+        }
     }
 
     /**
@@ -99,6 +105,11 @@ class Model
         return $this->errors;
     }
 
+    public function setId( $id )
+    {
+        $this->id = $id;
+    }
+
     /**
      * Hace las validaciones requeridas a los datos de entrada
      */
@@ -132,6 +143,7 @@ class Model
         return '';
     }
 
+    protected $id;
     protected $nombre;
     protected $errors;
 }

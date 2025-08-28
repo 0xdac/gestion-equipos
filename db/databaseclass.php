@@ -31,6 +31,19 @@ class DatabaseClass {
     }
 
     /**
+     * Actualiza una  fila en la tabla
+     * @param string $table_name el nombre de la tabla 
+     * @param array $fields los campos y los valores a actualizar
+     * @param $id el id de la fila
+     */ 
+    public function update( $table_name = "", $fields = [], $id )
+    {
+        $statement = $this->createUpdateQuery( $table_name, $fields, $id );
+
+        return $this->executeStatement( $statement, $fields );        		
+    }
+
+    /**
      * Elimina una fila en la tabla
      * @param string $table_name el nombre de la tabla donde se va a eliminar
      * @param integer $id el id de la fila
@@ -88,6 +101,29 @@ class DatabaseClass {
         $query = "INSERT INTO `". $table_name ."` (" . implode(', ', $keys ) . ") "
              . "VALUES ('" . implode("', '", $vals ) . "')";
     
+        return $query;
+    }
+
+    /**
+     * Crea una instruccion UPDATE dinamica segun la tabla y los campos
+     */
+    private function createUpdateQuery( $table_name, $fields, $id ) 
+    {
+        $count = count( $fields );
+        $counter = 1;
+        $columns = "";
+        
+        foreach( $fields as $key => $value ){
+            $columns .= "`$key` = :$key";
+            
+            if( $counter < $count )
+                $columns .= ", ";
+
+            $counter ++;
+        }
+
+        $query = "Update $table_name set $columns where id = $id";
+        
         return $query;
     }
     

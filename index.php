@@ -50,6 +50,12 @@ if( isset( $_GET[ 'r' ] ) && isset( $_GET[ 'action' ] ) ){
             exit;
         }
 
+        if( 'update' === $action ){   
+            $id = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : -1 ;         
+            $jugador_controller->actionUpdate( $id );
+            exit;
+        }
+
         //Default
         header( 'Location: index.php', true, 301 );
         exit;

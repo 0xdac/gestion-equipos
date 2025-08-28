@@ -3,9 +3,11 @@
 namespace controllers;
 
 require_once( dirname( dirname( __FILE__ ) ) . '/models/Equipo.php' );
+require_once( dirname( dirname( __FILE__ ) ) . '/models/Jugador.php' );
 require_once( dirname( dirname( __FILE__ ) ) . '/controllers/Controller.php' );
 
 use models\Equipo;
+use models\Jugador;
 
 /**
  * EquipoController es la clase controladora de equipo
@@ -50,12 +52,15 @@ class EquipoController extends Controller
     public function actionView( $id )
     {
         $equipo = Equipo::findOne( $id );
-
+                
         if ( !$equipo ) {            
             return $this->redirect( 'index.php?r=equipo&action=index' );
         } else {
+            $jugadores = Jugador::allByTeam( $id );
+
             return $this->render( '/views/equipo/view.php', [
-                    'equipo' => $equipo
+                    'equipo' => $equipo,
+                    'jugadores' => $jugadores
                 ] 
             );
         }
